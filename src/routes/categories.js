@@ -48,6 +48,12 @@ router.put('/:id', async (request, response) => {
 
 router.delete('/:id', async (request, response) => {
   const {id} = request.params;
+  try {
+    const deletedObj = await Category.findByIdAndDelete(id);
+    response.send(deletedObj);
+  } catch (err) {
+    response.sendStatus(400).send(err);
+  }
 });
 
 module.exports = router;
