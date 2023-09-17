@@ -1,4 +1,5 @@
 const Expense = require('../model/expense-model');
+const {validationResult} = require('express-validator');
 
 const expenseCltr = {};
 
@@ -13,10 +14,15 @@ expenseCltr.getAllExpense = async (request, response) => {
 };
 
 expenseCltr.postExpense = async (request, response) => {
-  const {body} = request;
   try {
-    const expenseObj = await Expense.create(body);
-    response.send(expenseObj);
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      response.send({errors: errors.array()});
+    } else {
+      const {body} = request;
+      const expenseObj = await Expense.create(body);
+      response.send(expenseObj);
+    }
   } catch (err) {
     console.log(err);
     response.sendStatus(400);
