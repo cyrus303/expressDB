@@ -10,6 +10,7 @@ const expenseRoute = require('./routes/expense');
 
 app.use(express.json());
 app.use(cors());
+
 app.use('/api/v1/categories', categoriesRoute);
 app.use('/api/v1/expense', expenseRoute);
 
