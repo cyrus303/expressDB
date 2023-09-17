@@ -1,19 +1,5 @@
 const mongoose = require('mongoose');
-const {connect, Schema, model} = mongoose;
-
-connect(
-  `mongodb+srv://${process.env.UserName}:${process.env.Password}@${process.env.MongoDB_URI}/express_DB`
-)
-  .then(() => console.log('connected to DB'))
-  .catch((err) => console.log(err));
-
-const categorySchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-});
+const {Schema, model} = mongoose;
 
 const expenseScheme = new Schema({
   title: {
@@ -40,7 +26,6 @@ const expenseScheme = new Schema({
   },
 });
 
-const Category = model('Category', categorySchema);
 const Expense = model('Expense', expenseScheme);
 
-module.exports = {Category, Expense};
+module.exports = Expense;
